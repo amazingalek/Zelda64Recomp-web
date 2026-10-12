@@ -55,6 +55,9 @@
 #include "../../patches/misc_funcs.h"
 
 #include "mods/mm_recomp_dpad_builtin.h"
+#ifdef __EMSCRIPTEN__
+extern "C" const recomp_precompiled_mod mm_recomp_dpad_builtin_code;
+#endif
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -730,10 +733,11 @@ int main(int argc, char** argv) {
         recomp::register_game(game);
     }
 
-#ifndef __EMSCRIPTEN__
-    // A mod's code is recompiled when it loads, and the page has no live recompiler (mods are off there), so the
-    // built-in D-pad mod stays out of the page and the D-pad doesn't take items in a browser.
     recomp::mods::register_embedded_mod("mm_recomp_dpad_builtin", { (const uint8_t*)(mm_recomp_dpad_builtin), std::size(mm_recomp_dpad_builtin)});
+#ifdef __EMSCRIPTEN__
+    // A mod's code is recompiled when it loads, and the page has no live recompiler, so there the D-pad mod's code is
+    // recompiled with the game (CMakeLists.txt) and the runtime runs that.
+    recomp::mods::register_precompiled_mod(mm_recomp_dpad_builtin_code);
 #endif
 
     REGISTER_FUNC(recomp_get_window_resolution);

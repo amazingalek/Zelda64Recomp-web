@@ -406,6 +406,14 @@ endforeach()
 
 target_sources(Zelda64Recompiled PRIVATE ${GENERATED_NRM_SOURCES})
 
+# The page has no live recompiler, so the built-in D-pad mod's code is recompiled with the game, by OfflineModRecomp
+# (BUILDING.md), and main.cpp registers it.
+if (EMSCRIPTEN)
+    set(RECOMP_WEB_OFFLINE_MOD_RECOMP "${CMAKE_SOURCE_DIR}/OfflineModRecomp${CMAKE_HOST_EXECUTABLE_SUFFIX}")
+    recomp_web_precompiled_mod(Zelda64Recompiled ${CMAKE_SOURCE_DIR}/mods/mm_recomp_dpad_builtin.nrm
+        ${CMAKE_SOURCE_DIR}/Zelda64RecompSyms/mm.us.rev1.syms.toml mm_recomp_dpad_builtin_code)
+endif()
+
 target_sources(Zelda64Recompiled PRIVATE ${SOURCES})
 
 set_property(TARGET Zelda64Recompiled PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")

@@ -81,11 +81,13 @@ Voilà! You should now have a `Zelda64Recompiled` executable in the build direct
 This fork's `web` branch also builds with [Emscripten](https://emscripten.org) into a page, `Zelda64Recompiled.html`,
 that draws through WebGPU. `lib/rt64`, `lib/N64ModernRuntime` and `lib/RecompFrontend` are the web forks at the
 commits [recomp-web](https://github.com/amazingalek/recomp-web)'s `forks.txt` names, and `lib/recomp-web` makes the
-game a page. Mods are off on the page, the built-in D-pad one too (the D-pad doesn't take items there). RT64's render
-to RAM stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
+game a page. Mods a player installs are off on the page (no live recompiler), but the built-in D-pad one is
+recompiled to C at build time and linked in, so the D-pad takes items there as on the desktop. RT64's render to RAM
+stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
 
-With steps 1 to 4 done (the generated code is the same; build N64Recomp from `lib/N64ModernRuntime/N64Recomp`, whose
-`funcs.h` declares every function the recompiled code calls), the Emscripten SDK installed and activated, and
+With steps 1 to 4 done (build N64Recomp from `lib/N64ModernRuntime/N64Recomp`, whose `funcs.h` declares every
+function the recompiled code calls and whose C lets a mod redirect a function at its entry; copy its `OfflineModRecomp`
+to the root as well, which turns the D-pad mod into C), the Emscripten SDK installed and activated, and
 [naga](https://github.com/gfx-rs/wgpu/tree/trunk/naga) installed (`cargo install naga-cli`):
 
 ```bash
