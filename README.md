@@ -2,7 +2,7 @@
 
 > [!WARNING]
 > **This is amazingalek/Zelda64Recomp-web, a fork, not Zelda 64: Recompiled.** Its `web` branch is upstream's
-> `recomp-frontend` branch built into a web page (WebGPU, through [recomp-web](https://github.com/amazingalek/recomp-web)),
+> `recomp-frontend` branch built into a web page (WebGPU, through [N64Recomp-browser](https://github.com/amazingalek/N64Recomp-browser)),
 > and everything on it past upstream's commits was written by AI (Claude). It is not made, endorsed or supported by
 > the Zelda 64: Recompiled team, whose contributing guide bans AI-written code: that holds for their project, nothing
 > here is offered upstream, and please don't take issues with this fork to them. Building the page:

@@ -80,7 +80,7 @@ Voilà! You should now have a `Zelda64Recompiled` executable in the build direct
 
 This fork's `web` branch also builds with [Emscripten](https://emscripten.org) into a page, `Zelda64Recompiled.html`,
 that draws through WebGPU. `lib/rt64`, `lib/N64ModernRuntime` and `lib/RecompFrontend` are the web forks at the
-commits [recomp-web](https://github.com/amazingalek/recomp-web)'s `forks.txt` names, and `lib/recomp-web` makes the
+commits [N64Recomp-browser](https://github.com/amazingalek/N64Recomp-browser)'s `forks.txt` names, and `lib/N64Recomp-browser` makes the
 game a page. Mods a player installs are off on the page (no live recompiler), but the built-in D-pad one is
 recompiled to C at build time and linked in, so the D-pad takes items there as on the desktop. RT64's render to RAM
 stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
