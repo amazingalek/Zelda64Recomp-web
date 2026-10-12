@@ -1,10 +1,23 @@
 #include "zelda_support.h"
 #include <SDL.h>
+#ifndef __EMSCRIPTEN__
 #include "nfd.h"
+#endif
 #include "RmlUi/Core.h"
 
 namespace zelda64 {
     // MARK: - Internal Helpers
+#ifdef __EMSCRIPTEN__
+    // A browser has no native file dialogs. Nothing in the game asks for one: RecompFrontend's launcher asks the page
+    // for the ROM itself.
+    void perform_file_dialog_operation(const std::function<void(bool, const std::filesystem::path&)>& callback) {
+        callback(false, {});
+    }
+
+    void perform_file_dialog_operation_multiple(const std::function<void(bool, const std::list<std::filesystem::path>&)>& callback) {
+        callback(false, {});
+    }
+#else
     void perform_file_dialog_operation(const std::function<void(bool, const std::filesystem::path&)>& callback) {
         nfdnchar_t* native_path = nullptr;
         nfdresult_t result = NFD_OpenDialogN(&native_path, nullptr, 0, nullptr);
@@ -42,6 +55,7 @@ namespace zelda64 {
 
         callback(success, paths);
     }
+#endif
 
     // MARK: - Public API
 
