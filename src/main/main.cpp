@@ -730,7 +730,11 @@ int main(int argc, char** argv) {
         recomp::register_game(game);
     }
 
+#ifndef __EMSCRIPTEN__
+    // A mod's code is recompiled when it loads, and the page has no live recompiler (mods are off there), so the
+    // built-in D-pad mod stays out of the page and the D-pad doesn't take items in a browser.
     recomp::mods::register_embedded_mod("mm_recomp_dpad_builtin", { (const uint8_t*)(mm_recomp_dpad_builtin), std::size(mm_recomp_dpad_builtin)});
+#endif
 
     REGISTER_FUNC(recomp_get_window_resolution);
     REGISTER_FUNC(recomp_get_target_aspect_ratio);
