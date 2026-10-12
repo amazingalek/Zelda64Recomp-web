@@ -41,6 +41,8 @@ if (EMSCRIPTEN)
     add_link_options(-pthread -fwasm-exceptions)
     # ccache when it is on PATH (BUILDING.md, "The web page").
     include(${CMAKE_SOURCE_DIR}/lib/N64Recomp-browser/frontend/build_speed.cmake)
+    # The shaders the page builds before the game starts (src/rt64_shaders.txt says how they were recorded).
+    set(RT64_PREBUILT_SHADER_LIST ${CMAKE_SOURCE_DIR}/src/rt64_shaders.txt)
 endif()
 
 # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:

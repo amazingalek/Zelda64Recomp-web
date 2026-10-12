@@ -85,6 +85,11 @@ game a page. Mods a player installs are off on the page (no live recompiler), bu
 recompiled to C at build time and linked in, so the D-pad takes items there as on the desktop. RT64's render to RAM
 stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
 
+The page builds the shaders the game uses before the game starts, so it never draws with RT64's slow ubershader in
+the middle of play: `src/rt64_shaders.txt` lists them (its header says what was played to record them), and the build
+specializes each one (`RT64_PREBUILT_SHADER_LIST` in `CMakeLists.txt`). To record more, open the page with
+`?record-shaders`, play, and add the `rt64 shader:` lines the console prints that the list doesn't have yet.
+
 With steps 1 to 4 done (build N64Recomp from `lib/N64ModernRuntime/N64Recomp`, whose `funcs.h` declares every
 function the recompiled code calls, whose C lets a mod redirect a function at its entry, and whose patches call the
 runtime's own libultra functions; copy its `OfflineModRecomp` to the root as well, which turns the D-pad mod into C),
@@ -112,4 +117,6 @@ Two things make later builds shorter:
 browser with WebGPU (Chrome or Edge 113 and up) and must be cross-origin isolated: serve the folder with
 `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, or on a host that can't
 set headers, as is, and `coi_serviceworker.js` sets them after one reload. The player picks their ROM in the launcher;
-it, the settings and the saves are kept in the browser's IndexedDB for that origin.
+it, the settings and the saves are kept in the browser's IndexedDB for that origin. Each time the game starts, the
+page shows "Preparing graphics" with a bar while it builds the game's 722 shaders, about a minute in Chrome (52 s on
+an RTX 2070 with the computer busy), and the game begins once they are ready. Firefox builds none and starts at once.
