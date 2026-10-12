@@ -1,4 +1,13 @@
 # Zelda 64: Recompiled
+
+> [!WARNING]
+> **This is amazingalek/Zelda64Recomp-web, a fork, not Zelda 64: Recompiled.** Its `web` branch is upstream's
+> `recomp-frontend` branch built into a web page (WebGPU, through [recomp-web](https://github.com/amazingalek/recomp-web)),
+> and everything on it past upstream's commits was written by AI (Claude). It is not made, endorsed or supported by
+> the Zelda 64: Recompiled team, whose contributing guide bans AI-written code: that holds for their project, nothing
+> here is offered upstream, and please don't take issues with this fork to them. Building the page:
+> [BUILDING.md](BUILDING.md#the-web-page).
+
 Zelda 64: Recompiled is a project that uses [N64: Recompiled](https://github.com/Mr-Wiseguy/N64Recomp) to **statically recompile** Majora's Mask (and soon Ocarina of Time) into a native port with many new features, enhancements, and extensive mod support. This project uses [RT64](https://github.com/rt64/rt64) as the rendering engine to provide graphical enhancements.
 
 ### [Check out the latest release here](https://github.com/Mr-Wiseguy/Zelda64Recomp/releases/latest).

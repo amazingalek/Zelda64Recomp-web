@@ -75,3 +75,28 @@ Voilà! You should now have a `Zelda64Recompiled` executable in the build direct
 
 > [!IMPORTANT]
 > In the game itself, you should be using a standard ROM, not the decompressed one.
+
+## The web page
+
+This fork's `web` branch also builds with [Emscripten](https://emscripten.org) into a page, `Zelda64Recompiled.html`,
+that draws through WebGPU. `lib/rt64`, `lib/N64ModernRuntime` and `lib/RecompFrontend` are the web forks at the
+commits [recomp-web](https://github.com/amazingalek/recomp-web)'s `forks.txt` names, and `lib/recomp-web` makes the
+game a page. Mods are off on the page. RT64's render to RAM stays on, as on the desktop: the Pictograph Box reads the
+photo it took back on the CPU.
+
+With steps 1 to 4 done (the generated code is the same; build N64Recomp from `lib/N64ModernRuntime/N64Recomp`, whose
+`funcs.h` declares every function the recompiled code calls), the Emscripten SDK installed and activated, and
+[naga](https://github.com/gfx-rs/wgpu/tree/trunk/naga) installed (`cargo install naga-cli`):
+
+```bash
+embuilder build sdl2-mt freetype-legacysjlj      # once
+emcmake cmake -S . -B build-web -G Ninja -DCMAKE_BUILD_TYPE=Release -DRT64_NAGA_EXECUTABLE=<naga> \
+    -DPATCHES_C_COMPILER=<clang with a MIPS target> -DPATCHES_LD=<ld.lld>
+cmake --build build-web --target Zelda64Recompiled
+```
+
+`build-web` then holds `Zelda64Recompiled.html`, `.js`, `.wasm`, `.data` and `coi_serviceworker.js`. The page needs a
+browser with WebGPU (Chrome or Edge 113 and up) and must be cross-origin isolated: serve the folder with
+`Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, or on a host that can't
+set headers, as is, and `coi_serviceworker.js` sets them after one reload. The player picks their ROM in the launcher;
+it, the settings and the saves are kept in the browser's IndexedDB for that origin.
