@@ -30,7 +30,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 endif()
 
 # With Emscripten (emcmake cmake), the game builds as a page for a browser, Zelda64Recompiled.html, through
-# lib/N64Recomp-browser/frontend: RT64 and the menus on WebGPU, mods off (BUILDING.md, "In a browser").
+# lib/N64Recomp-browser/frontend: RT64 and the menus on WebGPU, mods off (BUILDING.md, "The web page").
 if (EMSCRIPTEN)
     # Threads are pthreads (SharedArrayBuffer), and the runtime ends a game thread by throwing. -msimd128 is wasm SIMD,
     # which every browser with WebGPU has.
@@ -39,6 +39,8 @@ if (EMSCRIPTEN)
     # there. XXH_HAS_INCLUDE is used for nothing else, so XXH3 stays scalar.
     add_compile_options("-DXXH_HAS_INCLUDE(x)=0")
     add_link_options(-pthread -fwasm-exceptions)
+    # ccache when it is on PATH (BUILDING.md, "The web page").
+    include(${CMAKE_SOURCE_DIR}/lib/N64Recomp-browser/frontend/build_speed.cmake)
 endif()
 
 # Avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24:
@@ -377,7 +379,7 @@ target_link_libraries(Zelda64Recompiled PRIVATE
 if (EMSCRIPTEN)
     # The page (lib/N64Recomp-browser/frontend), with the menus' assets and the controller mappings in its .data file. No ROM:
     # the player picks theirs in the launcher, and it stays in the browser.
-    recomp_web_frontend_page(Zelda64Recompiled)
+    n64recomp_browser_frontend_page(Zelda64Recompiled)
     target_link_options(Zelda64Recompiled PRIVATE
         "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/assets@/assets"
         "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/recompcontrollerdb.txt@/recompcontrollerdb.txt")
@@ -409,8 +411,8 @@ target_sources(Zelda64Recompiled PRIVATE ${GENERATED_NRM_SOURCES})
 # The page has no live recompiler, so the built-in D-pad mod's code is recompiled with the game, by OfflineModRecomp
 # (BUILDING.md), and main.cpp registers it.
 if (EMSCRIPTEN)
-    set(RECOMP_WEB_OFFLINE_MOD_RECOMP "${CMAKE_SOURCE_DIR}/OfflineModRecomp${CMAKE_HOST_EXECUTABLE_SUFFIX}")
-    recomp_web_precompiled_mod(Zelda64Recompiled ${CMAKE_SOURCE_DIR}/mods/mm_recomp_dpad_builtin.nrm
+    set(N64RECOMP_BROWSER_OFFLINE_MOD_RECOMP "${CMAKE_SOURCE_DIR}/OfflineModRecomp${CMAKE_HOST_EXECUTABLE_SUFFIX}")
+    n64recomp_browser_precompiled_mod(Zelda64Recompiled ${CMAKE_SOURCE_DIR}/mods/mm_recomp_dpad_builtin.nrm
         ${CMAKE_SOURCE_DIR}/Zelda64RecompSyms/mm.us.rev1.syms.toml mm_recomp_dpad_builtin_code)
 endif()
 

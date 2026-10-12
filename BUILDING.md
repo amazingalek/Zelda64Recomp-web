@@ -86,9 +86,10 @@ recompiled to C at build time and linked in, so the D-pad takes items there as o
 stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
 
 With steps 1 to 4 done (build N64Recomp from `lib/N64ModernRuntime/N64Recomp`, whose `funcs.h` declares every
-function the recompiled code calls and whose C lets a mod redirect a function at its entry; copy its `OfflineModRecomp`
-to the root as well, which turns the D-pad mod into C), the Emscripten SDK installed and activated, and
-[naga](https://github.com/gfx-rs/wgpu/tree/trunk/naga) installed (`cargo install naga-cli`):
+function the recompiled code calls, whose C lets a mod redirect a function at its entry, and whose patches call the
+runtime's own libultra functions; copy its `OfflineModRecomp` to the root as well, which turns the D-pad mod into C),
+the Emscripten SDK installed and activated, and [naga](https://github.com/gfx-rs/wgpu/tree/trunk/naga) installed
+(`cargo install naga-cli`):
 
 ```bash
 embuilder build sdl2-mt freetype-legacysjlj      # once
@@ -96,6 +97,16 @@ emcmake cmake -S . -B build-web -G Ninja -DCMAKE_BUILD_TYPE=Release -DRT64_NAGA_
     -DPATCHES_C_COMPILER=<clang with a MIPS target> -DPATCHES_LD=<ld.lld>
 cmake --build build-web --target Zelda64Recompiled
 ```
+
+A first build compiles about 930 files and takes half an hour or more, five minutes of it the last step, the link.
+Two things make later builds shorter:
+
+- [ccache](https://ccache.dev) on `PATH` when you configure. Every compile then goes through it, so a new build dir
+  compiles nothing that was compiled before, and neither does another checkout of this repo with its build dir in the
+  same place. Keep the build dir inside the checkout, as `build-web` is: from one outside it, about half the files
+  miss the cache. The cache is per user, so it also serves other recomps built on the same web support.
+- `-DN64RECOMP_BROWSER_FAST_LINK=ON` when you only want to try something. The last step then takes seconds instead of
+  minutes, because it skips Binaryen's optimization of the whole program. Leave it off for a page that people play.
 
 `build-web` then holds `Zelda64Recompiled.html`, `.js`, `.wasm`, `.data` and `coi_serviceworker.js`. The page needs a
 browser with WebGPU (Chrome or Edge 113 and up) and must be cross-origin isolated: serve the folder with
