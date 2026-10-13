@@ -46,6 +46,7 @@ RECOMP_PATCH void Play_Main(GameState* thisx) {
 
     // @recomp
     debug_play_update(this);
+    shader_survey_play_update(this);
     controls_play_update(this);
     analog_cam_pre_play_update(this);
     matrix_play_update(this);

@@ -85,10 +85,13 @@ game a page. Mods a player installs are off on the page (no live recompiler), bu
 recompiled to C at build time and linked in, so the D-pad takes items there as on the desktop. RT64's render to RAM
 stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
 
-The page builds the shaders the game uses before the game starts, so it never draws with RT64's slow ubershader in
-the middle of play: `src/rt64_shaders.txt` lists them (its header says what was played to record them), and the build
-specializes each one (`RT64_PREBUILT_SHADER_LIST` in `CMakeLists.txt`). To record more, open the page with
-`?record-shaders`, play, and add the `rt64 shader:` lines the console prints that the list doesn't have yet.
+The page builds the shaders the game uses with the game waiting, so it never draws with RT64's slow ubershader in the
+middle of play: `src/rt64_shaders.txt` lists them in sections (its header says what each one holds), and the build
+specializes each one (`RT64_PREBUILT_SHADER_LIST` in `CMakeLists.txt`). Those above the first section (the logos,
+the title screen, file select) are built before the game starts, and a region's section when the game first draws
+there. `tools/record_shaders.sh` records the list (its header says how, about an hour): N64Recomp-browser's recorder
+drives the page in headless Chrome through `tools/shader_plan.json`, and `patches/shader_survey.c` starts a new game
+or warps to each area when the plan asks.
 
 With steps 1 to 4 done (build N64Recomp from `lib/N64ModernRuntime/N64Recomp`, whose `funcs.h` declares every
 function the recompiled code calls, whose C lets a mod redirect a function at its entry, and whose patches call the
@@ -118,7 +121,9 @@ browser with WebGPU (Chrome or Edge 113 and up) and must be cross-origin isolate
 `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, or on a host that can't
 set headers, as is, and `coi_serviceworker.js` sets them after one reload. The player picks their ROM in the launcher;
 it, the settings and the saves are kept in the browser's IndexedDB for that origin. Each time the game starts, the
-page shows "Preparing graphics" with a bar while it builds the game's 722 shaders (561 pipelines), and the game
-begins once they are ready: 16 s the first time in headless Chrome on an RTX 2070, and 11 s on later visits, since
-they are more than Chrome's 6 MB cache of built pipelines keeps. Firefox builds them too. A shader the list missed is built behind the game, and the page remembers it and builds it with the
-rest on the next visit.
+page shows "Preparing graphics" with a bar while it builds the 39 pipelines the title screen and file select draw
+with (of the list's 938 shaders, 730 pipelines), and a region's section is built when the game first draws there,
+the game waiting: in headless Chrome on an RTX 2070, with other work on the machine, the start took 2.6 s the first
+time and 0.2 s on the next visit, Clock Town (144 pipelines) 4.3 s and 1.7 s, Termina Field 2.3 s. Firefox builds them
+too. A shader the list missed is built behind the game, and the page remembers it and builds it with the rest on the
+next visit.

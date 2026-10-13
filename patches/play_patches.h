@@ -10,5 +10,6 @@ void analog_cam_pre_play_update(PlayState* play);
 void analog_cam_post_play_update(PlayState* play);
 void matrix_play_update(PlayState* play);
 void autosave_post_play_update(PlayState* play);
+void shader_survey_play_update(PlayState* play);
 
 #endif
