@@ -15,7 +15,7 @@
 # fountain, a grotto and the Chamber of Giants. Night and the other days added one shader. Not yet: human, Goron, Zora
 # and Fierce Deity Link outside the intro, items in use (bow, hookshot, bombs, Deku bubbles), most boss fights past
 # their intro, the minigames, the Pictograph Box, the final cutscenes and credits. A description missing here draws
-# with the ubershader until its shader is built, as before. Flags follow settings (filtering, HDR, MSAA, upscaling), so
+# with the ubershader until its shader is built. Flags follow settings (filtering, HDR, MSAA, upscaling), so
 # a change to one of those defaults means recording again.
 00000000 00200000 fc119623 ff2fffff 0003540b
 00000000 00200000 fcffffff fffe793c 0003540b
