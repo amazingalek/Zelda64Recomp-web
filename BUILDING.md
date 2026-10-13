@@ -118,5 +118,8 @@ browser with WebGPU (Chrome or Edge 113 and up) and must be cross-origin isolate
 `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, or on a host that can't
 set headers, as is, and `coi_serviceworker.js` sets them after one reload. The player picks their ROM in the launcher;
 it, the settings and the saves are kept in the browser's IndexedDB for that origin. Each time the game starts, the
-page shows "Preparing graphics" with a bar while it builds the game's 722 shaders, about a minute in Chrome (52 s on
-an RTX 2070 with the computer busy), and the game begins once they are ready. Firefox builds none and starts at once.
+page shows "Preparing graphics" with a bar while it builds the game's 722 shaders (561 pipelines), and the game
+begins once they are ready: 16 s the first time in headless Chrome on an RTX 2070 (52 s on the forks before rt64-web
+657c222), and 11 s on later visits, since they are more than Chrome's 6 MB cache of built pipelines keeps. Firefox
+builds them too. A shader the list missed is built behind the game, and the page remembers it and builds it with the
+rest on the next visit.
