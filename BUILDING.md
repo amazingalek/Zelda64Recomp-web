@@ -124,6 +124,7 @@ it, the settings and the saves are kept in the browser's IndexedDB for that orig
 page shows "Preparing graphics" with a bar while it builds the 39 pipelines the title screen and file select draw
 with (of the list's 938 shaders, 730 pipelines), and a region's section is built when the game first draws there,
 the game waiting: in headless Chrome on an RTX 2070, with other work on the machine, the start took 2.6 s the first
-time and 0.2 s on the next visit, Clock Town (144 pipelines) 4.3 s and 1.7 s, Termina Field 2.3 s. Firefox builds them
-too. A shader the list missed is built behind the game, and the page remembers it and builds it with the rest on the
+time and 0.2 s on the next visit, Clock Town (144 pipelines) 4.3 s and 1.7 s, Termina Field 2.3 s. Firefox 157 builds
+them too, one at a time, and keeps none between visits, so every visit waits as long: the start 4.5-4.7 s and Clock
+Town 14-16 s (RTX 2070, 2026-10-13). A shader the list missed is built behind the game, and the page remembers it and builds it with the rest on the
 next visit.
