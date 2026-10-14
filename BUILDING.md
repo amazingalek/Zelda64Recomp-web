@@ -144,3 +144,8 @@ Chrome 155 never waited at the start, and Clock Town waited 0.3 s for 16 shaders
 Firefox 158 waited 2.8 s for the boot's 39 (7.5 s on v0.28.0) and 7.8 s for Clock Town's 144, and then drew 60-61. On
 a 3840x2000 canvas, the stand-in for integrated graphics, Chrome never waited and drew 54-56; Firefox waited 2.8-3.2 s
 for the boot and then drew 20-34 until the attract demo waited for its 94 (in one run of two 60 for a while between).
+
+Played again from the page built on N64Recomp-browser b1c35d1 (main 22603e0) on 2026-10-14, on that canvas, an idle host,
+one page at a time: Firefox 158 waited 2.8 s for the boot and 5.2 s for the attract demo's 94, and rt64's pacing held
+it at the game's 20 frames a second nearly throughout (on from the launcher), no sound short; Chrome 155 never waited
+and drew 55-56.
