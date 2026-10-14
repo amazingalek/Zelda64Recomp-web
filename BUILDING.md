@@ -86,11 +86,14 @@ build. Mods a player installs are off on the page (no live recompiler), but the 
 recompiled to C at build time and linked in, so the D-pad takes items there as on the desktop. RT64's render to RAM
 stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
 
-The page builds the shaders the game uses with the game waiting, so it never draws with RT64's slow ubershader in the
-middle of play: `src/rt64_shaders.txt` lists them in sections (its header says what each one holds), and the build
-specializes each one (`RT64_PREBUILT_SHADER_LIST` in `CMakeLists.txt`). Those above the first section (the logos,
-the title screen, file select) are built before the game starts, and a region's section when the game first draws
-there. `tools/record_shaders.sh` records the list (its header says how, about an hour): N64Recomp-browser's recorder
+The page builds the shaders the game uses before it draws with them, so it never draws with RT64's slow ubershader in
+the middle of play: `src/rt64_shaders.txt` lists them in sections (its header says what each one holds), and the build
+specializes each one (`RT64_PREBUILT_SHADER_LIST` in `CMakeLists.txt`). In Chrome the whole list is built behind the game from its first frame, those above the first section (the logos,
+the title screen, file select) first on half the host's cores, then the rest one at a time with a region the game has
+reached moved to the front, and the game waits only when a frame wants 4 or more of a section's shaders that aren't
+built yet, under a small "Preparing graphics" indicator in a corner. Firefox builds a pipeline in line with the rest of
+its GPU work, so there those above the first section are built before the game starts, and a region's section when the
+game first draws there, the game waiting. `tools/record_shaders.sh` records the list (its header says how, about an hour): N64Recomp-browser's recorder
 drives the page in headless Chrome through `tools/shader_plan.json`, and `patches/shader_survey.c` starts a new game
 or warps to each area when the plan asks.
 
@@ -127,17 +130,16 @@ Two things make later builds shorter:
 browser with WebGPU (Chrome or Edge 113 and up) and must be cross-origin isolated: serve the folder with
 `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, or on a host that can't
 set headers, as is, and `coi_serviceworker.js` sets them after one reload. The player picks their ROM in the launcher;
-it, the settings and the saves are kept in the browser's IndexedDB for that origin. Each time the game starts, the
-page shows "Preparing graphics" with a bar while it builds the 39 pipelines the title screen and file select draw
-with (of the list's 938 shaders, 730 pipelines), and a region's section is built when the game first draws there,
-the game waiting: in headless Chrome on an RTX 2070, with other work on the machine, the start took 2.6 s the first
-time and 0.2 s on the next visit, Clock Town (144 pipelines) 4.3 s and 1.7 s, Termina Field 2.3 s. Firefox 157 builds
-them too, one at a time, and keeps none between visits, so every visit waits as long: the start 4.5-4.7 s and Clock
-Town 14-16 s (RTX 2070, 2026-10-13). A shader the list missed is built behind the game, and the page remembers it and builds it with the rest on the
+it, the settings and the saves are kept in the browser's IndexedDB for that origin. The list's 938 shaders are 730 pipelines, 39 of them the title screen's and file select's. Before
+N64Recomp-browser v0.27.0 Chrome waited for each section as Firefox does: in headless Chrome on an RTX 2070, with other
+work on the machine, the start took 2.6 s the first time and 0.2 s on the next visit, Clock Town (144 pipelines) 4.3 s
+and 1.7 s, Termina Field 2.3 s. Firefox 157 keeps none between visits, so every visit waits as long: the start 4.5-4.7
+s and Clock Town 14-16 s (RTX 2070, 2026-10-13). A shader the list missed is built behind the game, and the page remembers it and builds it with the rest on the
 next visit.
 
-Played from the published page (main a538568) on 2026-10-14 (RTX 2070, a busy host), built from Zelda 64: Recompiled's own
-submodules with N64Recomp-browser's `patches/`: the launcher, Load ROM, the attract demo, file select, the intro and
-Link in the Lost Woods, with sound and no WebGPU errors. The boot, attract demo, Clock Town and intro sections took
-2.4, 5.3, 1.5 and 1.3 s in headless Chrome 155 and 5.0, 10.0, 6.6 and 4.9 s in Firefox 158, and the Lost Woods drew
-56 frames a second in Chrome and 60 in Firefox.
+Played from the published page (main 4b2c789, N64Recomp-browser v0.28.0) on 2026-10-14 (RTX 2070, a busy host): the
+launcher, Load ROM and the boot in both browsers, and Clock Town reached by `tools/shader_plan.json` in Chrome, with
+sound and no WebGPU errors. On a first visit headless Chrome 155 never waited at the start (2.4 s on the patches before
+v0.27.0), and Clock Town waited 0.5 s for 21 shaders (1.5 s before) and drew 54-57 frames a second; all 730 pipelines
+were built 113 s after the page opened. Firefox 158 waited 7.5 s for the boot's 39 and 15.1 s for the attract demo's
+94, the GPU busy with other work, and then drew 53-61.
