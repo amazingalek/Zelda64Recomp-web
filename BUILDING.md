@@ -137,9 +137,10 @@ and 1.7 s, Termina Field 2.3 s. Firefox 157 keeps none between visits, so every 
 s and Clock Town 14-16 s (RTX 2070, 2026-10-13). A shader the list missed is built behind the game, and the page remembers it and builds it with the rest on the
 next visit.
 
-Played from the published page (main 4b2c789, N64Recomp-browser v0.28.0) on 2026-10-14 (RTX 2070, a busy host): the
-launcher, Load ROM and the boot in both browsers, and Clock Town reached by `tools/shader_plan.json` in Chrome, with
-sound and no WebGPU errors. On a first visit headless Chrome 155 never waited at the start (2.4 s on the patches before
-v0.27.0), and Clock Town waited 0.5 s for 21 shaders (1.5 s before) and drew 54-57 frames a second; all 730 pipelines
-were built 113 s after the page opened. Firefox 158 waited 7.5 s for the boot's 39 and 15.1 s for the attract demo's
-94, the GPU busy with other work, and then drew 53-61.
+Played from the published page (main 9ac5695, N64Recomp-browser 7b80155) on 2026-10-14 (RTX 2070, an idle host), by
+`tools/shader_plan.json` with N64Recomp-browser's `tools/play_page.mjs`: the launcher, Load ROM, the boot and Clock
+Town in both browsers, with sound and no WebGPU errors. On a first visit a local build of the same commit in headless
+Chrome 155 never waited at the start, and Clock Town waited 0.3 s for 16 shaders and drew 52-58 frames a second.
+Firefox 158 waited 2.8 s for the boot's 39 (7.5 s on v0.28.0) and 7.8 s for Clock Town's 144, and then drew 60-61. On a
+3840x2000 canvas, the stand-in for integrated graphics, Chrome never waited and drew 54-56; Firefox waited 3.2 s for
+the boot, drew 20-29 for about 10 s after it, then 60, until the attract demo waited for its 94.
