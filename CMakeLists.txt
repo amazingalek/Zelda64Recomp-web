@@ -32,6 +32,10 @@ endif()
 # With Emscripten (emcmake cmake), the game builds as a page for a browser, Zelda64Recompiled.html, through
 # lib/N64Recomp-browser/frontend: RT64 and the menus on WebGPU, mods off (BUILDING.md, "The web page").
 if (EMSCRIPTEN)
+    # lib/rt64, lib/N64ModernRuntime and lib/RecompFrontend with N64Recomp-browser's web support patched in, if
+    # BUILDING.md's step hasn't already.
+    include(${CMAKE_SOURCE_DIR}/lib/N64Recomp-browser/patches/apply.cmake)
+    n64recomp_browser_apply_patches(${CMAKE_SOURCE_DIR}/lib)
     # Threads are pthreads (SharedArrayBuffer), and the runtime ends a game thread by throwing. -msimd128 is wasm SIMD,
     # which every browser with WebGPU has.
     add_compile_options(-pthread -fwasm-exceptions -msimd128)
@@ -102,7 +106,7 @@ file(GLOB FUNC_CXX_SOURCES ${CMAKE_SOURCE_DIR}/RecompiledFuncs/*.cpp)
 target_sources(RecompiledFuncs PRIVATE ${FUNC_C_SOURCES} ${FUNC_CXX_SOURCES})
 
 # WebAssembly checks a call's signature when it links and turns a call to an undeclared function into a trap, so with
-# Emscripten that is an error in the recompiled code. N64Recomp-web's funcs.h declares everything it calls.
+# Emscripten that is an error in the recompiled code. The patched N64Recomp's funcs.h declares everything it calls.
 if (EMSCRIPTEN)
     target_compile_options(RecompiledFuncs PRIVATE -Werror=implicit-function-declaration)
 endif()

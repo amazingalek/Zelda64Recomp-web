@@ -79,9 +79,10 @@ Voilà! You should now have a `Zelda64Recompiled` executable in the build direct
 ## The web page
 
 This fork's `main` branch also builds with [Emscripten](https://emscripten.org) into a page, `Zelda64Recompiled.html`,
-that draws through WebGPU. `lib/rt64`, `lib/N64ModernRuntime` and `lib/RecompFrontend` are the web forks at the
-commits [N64Recomp-browser](https://github.com/amazingalek/N64Recomp-browser)'s `forks.txt` names, and `lib/N64Recomp-browser` makes the
-game a page. Mods a player installs are off on the page (no live recompiler), but the built-in D-pad one is
+that draws through WebGPU. `lib/rt64`, `lib/N64ModernRuntime` and `lib/RecompFrontend` are upstream's own, at the
+same commits, and [N64Recomp-browser](https://github.com/amazingalek/N64Recomp-browser) (`lib/N64Recomp-browser`)
+patches their checkouts with the web support and makes the game a page. The patches change nothing in the desktop
+build. Mods a player installs are off on the page (no live recompiler), but the built-in D-pad one is
 recompiled to C at build time and linked in, so the D-pad takes items there as on the desktop. RT64's render to RAM
 stays on, as on the desktop: the Pictograph Box reads the photo it took back on the CPU.
 
@@ -93,8 +94,14 @@ there. `tools/record_shaders.sh` records the list (its header says how, about an
 drives the page in headless Chrome through `tools/shader_plan.json`, and `patches/shader_survey.c` starts a new game
 or warps to each area when the plan asks.
 
-With steps 1 to 4 done (build N64Recomp from `lib/N64ModernRuntime/N64Recomp`, whose `funcs.h` declares every
-function the recompiled code calls, whose C lets a mod redirect a function at its entry, and whose patches call the
+With steps 1 to 3 done, patch the submodules:
+
+```bash
+cmake -P lib/N64Recomp-browser/patches/apply.cmake lib
+```
+
+Then step 4, with N64Recomp built from the patched `lib/N64ModernRuntime/N64Recomp` (its `funcs.h` declares every
+function the recompiled code calls, its C lets a mod redirect a function at its entry, and its patches call the
 runtime's own libultra functions; copy its `OfflineModRecomp` to the root as well, which turns the D-pad mod into C),
 the Emscripten SDK installed and activated, and [naga](https://github.com/gfx-rs/wgpu/tree/trunk/naga) installed
 (`cargo install naga-cli`):
