@@ -141,6 +141,6 @@ Played from the published page (main 9ac5695, N64Recomp-browser 7b80155) on 2026
 `tools/shader_plan.json` with N64Recomp-browser's `tools/play_page.mjs`: the launcher, Load ROM, the boot and Clock
 Town in both browsers, with sound and no WebGPU errors. On a first visit a local build of the same commit in headless
 Chrome 155 never waited at the start, and Clock Town waited 0.3 s for 16 shaders and drew 52-58 frames a second.
-Firefox 158 waited 2.8 s for the boot's 39 (7.5 s on v0.28.0) and 7.8 s for Clock Town's 144, and then drew 60-61. On a
-3840x2000 canvas, the stand-in for integrated graphics, Chrome never waited and drew 54-56; Firefox waited 3.2 s for
-the boot, drew 20-29 for about 10 s after it, then 60, until the attract demo waited for its 94.
+Firefox 158 waited 2.8 s for the boot's 39 (7.5 s on v0.28.0) and 7.8 s for Clock Town's 144, and then drew 60-61. On
+a 3840x2000 canvas, the stand-in for integrated graphics, Chrome never waited and drew 54-56; Firefox waited 2.8-3.2 s
+for the boot and then drew 20-34 until the attract demo waited for its 94 (in one run of two 60 for a while between).
