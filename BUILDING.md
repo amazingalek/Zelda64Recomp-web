@@ -149,3 +149,9 @@ Played again from the page built on N64Recomp-browser b1c35d1 (main 22603e0) on 
 one page at a time: Firefox 158 waited 2.8 s for the boot and 5.2 s for the attract demo's 94, and rt64's pacing held
 it at the game's 20 frames a second nearly throughout (on from the launcher), no sound short; Chrome 155 never waited
 and drew 55-56.
+
+Played again from the page built on N64Recomp-browser ed8764a (v0.36.0, main c86c04c) on 2026-10-14, on that canvas,
+an idle host, one page at a time, 90 s: Firefox 158 waited 2.9 s for the boot and 5.2 s for the attract demo's 94, and
+drew 59-60 between and after them, rt64's pacing never on (a game at about the display's rate, the launcher's 60, is
+never paced now, and drops are judged over a whole 2 s of presents), 240 sound frames short in the boot's wait; Chrome
+155 never waited and drew 54-56, no sound short.
