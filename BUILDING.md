@@ -135,3 +135,9 @@ time and 0.2 s on the next visit, Clock Town (144 pipelines) 4.3 s and 1.7 s, Te
 them too, one at a time, and keeps none between visits, so every visit waits as long: the start 4.5-4.7 s and Clock
 Town 14-16 s (RTX 2070, 2026-10-13). A shader the list missed is built behind the game, and the page remembers it and builds it with the rest on the
 next visit.
+
+Played from the published page (main a538568) on 2026-10-14 (RTX 2070, a busy host), built from Zelda 64: Recompiled's own
+submodules with N64Recomp-browser's `patches/`: the launcher, Load ROM, the attract demo, file select, the intro and
+Link in the Lost Woods, with sound and no WebGPU errors. The boot, attract demo, Clock Town and intro sections took
+2.4, 5.3, 1.5 and 1.3 s in headless Chrome 155 and 5.0, 10.0, 6.6 and 4.9 s in Firefox 158, and the Lost Woods drew
+56 frames a second in Chrome and 60 in Firefox.
