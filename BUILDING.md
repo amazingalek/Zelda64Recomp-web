@@ -159,3 +159,13 @@ never paced now, and drops are judged over a whole 2 s of presents), 240 sound f
 Played again from the page built on N64Recomp-browser 2efc795 (rt64-web 9ed449d, main 72a8cb8) on 2026-10-14, on that
 canvas, a quiet host, one page at a time, 25 s after the waits: Firefox 158 waited 3.2 s for the boot and then
 drew 59-60, Chrome 155 never waited and drew 58-60, rt64's pacing never on, no sound short, no WebGPU errors.
+
+On a laptop's Intel UHD (Tiger Lake, Windows 11 in its best power efficiency mode) on 2026-10-14, from the published
+page (main 72a8cb8, N64Recomp-browser 2efc795), by `tools/shader_plan.json` (`--play 90` and `--section clock-town`)
+with `play_page.mjs` at 1256x645, Firefox 158 and headless Chrome 155, a fresh profile each, one page at a time;
+presents a second are medians after the waits, and the RTX beside the Intel chip drew nothing. Firefox waited 4.0 s
+for the boot's 39 and 3.4 s for the attract demo's 94 and drew 18.7 (16.5-27.7), the game's 20; Chrome never waited
+and drew 20.0, 1,648 sound frames short once. In Clock Town both crashed about 35 s after the section's warp, in the
+same alley: Firefox (after 3.5 s for 39 and 5.8 s for the section's 144, then 19-25 a second) with `RuntimeError:
+index out of bounds` in the wasm, Chrome with `memory access out of bounds`; nothing drew after it and the sound ran
+dry. No WebGPU errors.
