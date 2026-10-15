@@ -187,3 +187,8 @@ headless Chrome 155 never waited at the start and waited 0.1 s twice in Clock To
 (median); Firefox 158 waited 3.0 s for the boot's 39 and 8.2 s for Clock Town's 144, then drew 59.3. No sound short, no
 WebGPU errors in either. Firefox's one exception is the first load's wasm fetch, cut off by `coi_serviceworker.js`'s
 reload.
+
+Played again from Pages, built on N64Recomp-browser v0.42.0 (main 3d90fa7), on 2026-10-15, RTX 2070, 1256x645, a fresh
+profile each, one page at a time, by `tools/shader_plan.json`'s `clock-town` section with `play_page.mjs`: headless
+Chrome 155 never waited and drew 59.4 presents a second (median); Firefox 158 waited 3.0 s for the boot's 39 and 8.6 s
+for Clock Town's 144, then drew 59.2. No sound short, no WebGPU errors in either.
