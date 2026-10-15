@@ -169,3 +169,13 @@ and drew 20.0, 1,648 sound frames short once. In Clock Town both crashed about 3
 same alley: Firefox (after 3.5 s for 39 and 5.8 s for the section's 144, then 19-25 a second) with `RuntimeError:
 index out of bounds` in the wasm, Chrome with `memory access out of bounds`; nothing drew after it and the sound ran
 dry. No WebGPU errors.
+
+Played again from the page built on N64Recomp-browser d3b9031 (N64ModernRuntime-web f0e0884, RecompFrontend-web 75fe596,
+rt64-web f34b19c; main 39e97d7, gh-pages 7b96619) on 2026-10-15, its files served locally with the cross-origin headers,
+RTX 2070, 1256x645, a fresh profile each, the host's every core busy with other work, by `tools/shader_plan.json`'s
+`clock-town` section with `play_page.mjs`, about 4 minutes of its scenes, the pause menu's screens and Skull Kid on the
+roof: headless Chrome 155 never waited at the start and waited 0.1 and 0.2 s in Clock Town, then drew 59.2 presents a
+second (median); Firefox 158 waited 4.1 s for the boot's 39 and 10.2 s for Clock Town's 144, then drew 59.2. No WebGPU
+errors or exceptions in either. The laptop's crash above, an out-of-bounds access about 35 s into this section as the
+pause menu closed, was the game's osDestroyThread of a thread on no queue: N64ModernRuntime-web f0e0884's
+`thread_queue_remove` does nothing for a null queue.
