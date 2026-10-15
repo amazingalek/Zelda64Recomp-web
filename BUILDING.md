@@ -179,3 +179,11 @@ second (median); Firefox 158 waited 4.1 s for the boot's 39 and 10.2 s for Clock
 errors or exceptions in either. The laptop's crash above, an out-of-bounds access about 35 s into this section as the
 pause menu closed, was the game's osDestroyThread of a thread on no queue: N64ModernRuntime-web f0e0884's
 `thread_queue_remove` does nothing for a null queue.
+
+Played again from Pages, built on N64Recomp-browser 7277a2e (rt64-web 8bea892, tile copies reused from one display list
+to the next; main a157fd1, gh-pages 3fa9ed9) on 2026-10-15, RTX 2070, 1256x645, a fresh profile each, the host's every
+core busy with other work, by `tools/shader_plan.json`'s `clock-town` section with `play_page.mjs`, about 4 minutes:
+headless Chrome 155 never waited at the start and waited 0.1 s twice in Clock Town, then drew 59.4 presents a second
+(median); Firefox 158 waited 3.0 s for the boot's 39 and 8.2 s for Clock Town's 144, then drew 59.3. No sound short, no
+WebGPU errors in either. Firefox's one exception is the first load's wasm fetch, cut off by `coi_serviceworker.js`'s
+reload.
