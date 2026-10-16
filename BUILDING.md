@@ -95,7 +95,9 @@ built yet, under a small "Preparing graphics" indicator in a corner. Firefox bui
 its GPU work, so there those above the first section are built before the game starts, and a region's section when the
 game first draws there, the game waiting. `tools/record_shaders.sh` records the list (its header says how, about an hour): N64Recomp-browser's recorder
 drives the page in headless Chrome through `tools/shader_plan.json`, and `patches/shader_survey.c` starts a new game
-or warps to each area when the plan asks.
+or warps to each area when the plan asks. `tools/play_plan.json` plays the page as a player would, for
+N64Recomp-browser's `tools/play_page.mjs`: the boot, then Termina Field outside Clock Town's south gate, warped to by
+the same survey, and about a minute of Link on foot there (its header says more).
 
 With steps 1 to 3 done, patch the submodules:
 
