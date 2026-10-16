@@ -198,3 +198,10 @@ Played on N64Recomp-browser v0.46.0 (main a9391f6 built with its pin moved there
 through `clock-town` at 1256x645 headless Chrome 155 never waited and drew 59.6 presents a second (median), Firefox 158
 waited 3.1 s for the boot's 39 and 8.7 s for Clock Town's 144 and drew 59.5; at 3840x2000 (`--play 25`) Chrome never
 waited and drew 59.6, Firefox waited 3.1 s for the boot and drew 59.6. No sound short, no WebGPU errors in any.
+
+Played on N64Recomp-browser v0.50.0 (main 0e7d24e built with its pin moved there, served locally) on 2026-10-16, RTX
+2070, a fresh profile each, one page at a time, a quiet host, by `tools/shader_plan.json` through `clock-town` with
+`play_page.mjs`: at 1256x645 headless Chrome 155 never waited and drew 55.6 presents a second (median; headless Chrome
+drew about 56 frames a second that night: four games played from Pages beside their builds, as a control, read 54.8-55.6
+too), Firefox 158 waited 11.7 s and drew 60.0; uncapped at 3840x2000 (`--uncapped --play 25`, the first such run) Chrome
+drew 149.2 and Firefox 136.2 after a 3.2 s wait. No sound short and no WebGPU errors in any.
