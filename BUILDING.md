@@ -132,8 +132,8 @@ Two things make later builds shorter:
 browser with WebGPU (Chrome or Edge 113 and up) and must be cross-origin isolated: serve the folder with
 `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, or on a host that can't
 set headers, as is, and `coi_serviceworker.js` sets them after one reload. The player picks their ROM in the launcher;
-it, the settings and the saves are kept in the browser's IndexedDB for that origin. The list's 938 shaders are 730
-pipelines, 39 of them the title screen's and file select's and 144 Clock Town's. Firefox keeps no built pipelines
+it, the settings and the saves are kept in the browser's IndexedDB for that origin. The list's 961 shaders include
+the 54 built before the game starts and Clock Town's 189. Firefox keeps no built pipelines
 between visits, so every visit waits for a section as long as the first. A shader the list missed is built behind
 the game, and the page remembers it and builds it with the rest on the next visit.
 
