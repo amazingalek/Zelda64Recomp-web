@@ -23,10 +23,16 @@
 # which draws much of it: a frame builds the section that holds the most of the shaders it wants, the earlier of two
 # that hold as many, and every game but a new one starts in Clock Town. A section's name is one word.
 #
-# Not recorded: other items in use (hookshot, bombs, Deku bubbles), boss fights past their intro, the minigames, the
-# Pictograph Box, the final cutscenes and credits; RT64 builds what the list misses behind the game, and the page
-# remembers it for the next visit. Flags follow settings (filtering, HDR, MSAA, upscaling), so a change to one of
-# those defaults means recording again.
+# Clock Town, its houses, Termina Field and Woodfall Temple each have a second load in the plan that plays where the
+# first walks, with shader_survey.js's helpers: Deku Link's bubble in South Clock Town; the town's shooting gallery;
+# the Pictograph Box, the Blast Mask, the Lens of Truth, the Bunny Hood and fire and ice arrows among Termina Field's
+# enemies; Odolwa's fight with the bow, bombs and the hookshot. The 20 descriptions a long play of the page
+# (2026-10-18) missed there are in those sections, put there by hand; its fights with Goht, Gyorg, Twinmold, Igos and
+# Majora drew nothing the list lacks.
+#
+# Not recorded: the other minigames, the final cutscenes and credits; RT64 builds what the list misses behind the game,
+# and the page remembers it for the next visit. Flags follow settings (filtering, HDR, MSAA, upscaling), so a change
+# to one of those defaults means recording again.
 0c192078 00182c00 fc167e60 35fcff7e 088a000e
 0c184341 00102c30 fc267e60 350cf37f 00ce140b
 00504341 00002cf0 fcffffff fffdf6fb 0800000b
@@ -404,6 +410,10 @@ c8113078 00182c00 fc127e60 ff17f3ff 099b100e
 00504341 00080c30 fc119623 ff2fffff 0b333202
 00504240 00002c30 fc309661 552eff7f 0ccb540b
 00504241 00080c30 fc119623 ff2fffff 0b333202
+c81049d8 00182c10 fc272c05 ff1493ff 0a86aa0e
+c8112078 00182c10 fc272c03 fffc93f8 0a86aa0e
+c8104e50 00182c00 fc272c60 150ce37f 08b61a0a
+c8104e50 00182c00 fc272c60 150ce37f 08b6120a
 section clock-town-houses
 00504241 00002c30 fc309661 552eff7f 0ccb540b
 00504241 00082c00 fc309661 552eff7f 0ccb540e
@@ -611,6 +621,11 @@ c8112078 00182c00 fc272c04 1f0c93ff 0916880e
 c81049d8 00182c00 fc272c04 1f0c93ff 088e000a
 0c193078 00182c00 fc3097ff 5ffefe38 0ccb540e
 0c184b51 00182c00 fc3097ff 5ffefe38 0ccb540e
+c8113078 00182c00 fc127fff fffff238 0ccbdc0e
+c8113078 00182c00 fc127fff fffff238 0ccbfe0a
+c8112078 00182c00 fc11ffff fffff638 0ccbfe0e
+c8112078 00182c00 fc127fff fffff238 0ccbdc0e
+c8112078 00182c00 fc11fe04 fffff7f8 0b33320e
 section intro
 00504241 00002c30 fc309661 552eff7f 0ccb540b
 00504241 00082c00 fc309661 552eff7f 0ccb540e
@@ -911,6 +926,14 @@ c8112078 00182c00 fc127e60 fffff3f8 088a000a
 c8112078 00182c00 fc127e60 fffff3f8 099b980a
 0c192078 00182c00 fc277e03 1ffcf7f8 0ccf540e
 c8113078 00182c00 fc127e60 fffff3f8 0bba660a
+00504241 00002c30 fc119623 ff2fffff 02aaaa0b
+00504241 00002c30 fcffffff fffdf6fb 0800000b
+0f0a4001 00002c30 fc11fe23 fffff7fb 04cb540b
+c8112078 00182c00 fc121604 53d7ff3f 0a22220e
+c8104dd9 00182c00 fc11fe04 ff17f3ff 0ccbfe0e
+c8112078 00182c00 fc127ea0 fffff3f8 0ccbfe0e
+c81049d8 00182c00 fc321664 53fcfe38 0aaaaa0a
+00504345 00002c30 fc61e6c3 11cf9fcf 0803fe02
 section swamp
 00504241 00002c30 fc309661 552eff7f 0ccb540b
 00504241 00082c00 fc309661 552eff7f 0ccb540e
@@ -1242,6 +1265,9 @@ c8113078 00182c00 fc121a60 fffffff8 0803760a
 c8112078 0018ac00 fc121a60 fffffff8 088a000e
 00504241 00080c30 fc119623 ff2fffff 0b333202
 00504240 00002c30 fc309661 552eff7f 0ccb540b
+c81049d8 00182c00 fc161a60 350ca37f 08ce140a
+c8113078 00182c00 fc11ffff fffff238 0aaaaa0a
+005041c8 00082c00 fc119623 ff2fffff 0ccb540a
 section mountain
 00504241 00002c30 fc309661 552eff7f 0ccb540b
 00504241 00082c00 fc309661 552eff7f 0ccb540e

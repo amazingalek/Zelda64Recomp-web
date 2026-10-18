@@ -26,10 +26,16 @@
   "which draws much of it: a frame builds the section that holds the most of the shaders it wants, the earlier of two",
   "that hold as many, and every game but a new one starts in Clock Town. A section's name is one word.",
   "",
-  "Not recorded: other items in use (hookshot, bombs, Deku bubbles), boss fights past their intro, the minigames, the",
-  "Pictograph Box, the final cutscenes and credits; RT64 builds what the list misses behind the game, and the page",
-  "remembers it for the next visit. Flags follow settings (filtering, HDR, MSAA, upscaling), so a change to one of",
-  "those defaults means recording again."
+  "Clock Town, its houses, Termina Field and Woodfall Temple each have a second load in the plan that plays where the",
+  "first walks, with shader_survey.js's helpers: Deku Link's bubble in South Clock Town; the town's shooting gallery;",
+  "the Pictograph Box, the Blast Mask, the Lens of Truth, the Bunny Hood and fire and ice arrows among Termina Field's",
+  "enemies; Odolwa's fight with the bow, bombs and the hookshot. The 20 descriptions a long play of the page",
+  "(2026-10-18) missed there are in those sections, put there by hand; its fights with Goht, Gyorg, Twinmold, Igos and",
+  "Majora drew nothing the list lacks.",
+  "",
+  "Not recorded: the other minigames, the final cutscenes and credits; RT64 builds what the list misses behind the game,",
+  "and the page remembers it for the next visit. Flags follow settings (filtering, HDR, MSAA, upscaling), so a change",
+  "to one of those defaults means recording again."
  ],
  "load": [
   ["until", "Device Name", 30000],
@@ -265,6 +271,15 @@
    ]
   },
   {
+   "name": "clock-town",
+   "steps": [
+    ["evalFile", "shader_survey.js"],
+    ["eval", "surveyWarp(0xd800, 3, 1, 8)"],
+    ["wait", 8000],
+    ["eval", "surveyBubble(20000)"]
+   ]
+  },
+  {
    "name": "clock-town-houses",
    "steps": [
     ["evalFile", "shader_survey.js"],
@@ -377,6 +392,18 @@
     ["hold", "KeyW", "w", 87, 1000],
     ["hold", "KeyQ", "q", 81, 120],
     ["wait", 600]
+   ]
+  },
+  {
+   "name": "clock-town-houses",
+   "steps": [
+    ["evalFile", "shader_survey.js"],
+    ["eval", "surveyWarp(0x3a00, 4, 1, 14)"],
+    ["wait", 6000],
+    ["eval", "surveyMoney(500)"],
+    ["hold", "KeyW", "w", 87, 1200],
+    ["eval", "surveySkip(8)"],
+    ["eval", "surveyFight(25000, 'aim')"]
    ]
   },
   {
@@ -881,6 +908,26 @@
    ]
   },
   {
+   "name": "termina-field",
+   "steps": [
+    ["evalFile", "shader_survey.js"],
+    ["eval", "surveyWarp(0x5400, 4, 1, 8)"],
+    ["wait", 9000],
+    ["eval", "surveyEquip(0x0D, 0x47, 0x02) + ' ' + surveyMoney(500)"],
+    ["hold", "ArrowLeft", "ArrowLeft", 37, 150],
+    ["wait", 1500],
+    ["hold", "ShiftLeft", "Shift", 16, 150],
+    ["wait", 2500],
+    ["hold", "Space", " ", 32, 150],
+    ["wait", 1500],
+    ["hold", "ShiftLeft", "Shift", 16, 150],
+    ["wait", 1500],
+    ["eval", "surveyFight(28000, 'tap')"],
+    ["eval", "surveyEquip(0x0E, 0x39, 0x03)"],
+    ["eval", "surveyFight(20000, 'aim')"]
+   ]
+  },
+  {
    "name": "swamp",
    "steps": [
     ["evalFile", "shader_survey.js"],
@@ -1154,6 +1201,18 @@
     ["wait", 1380],
     ["hold", "Space", " ", 32, 120],
     ["wait", 1380]
+   ]
+  },
+  {
+   "name": "woodfall-temple",
+   "steps": [
+    ["evalFile", "shader_survey.js"],
+    ["eval", "surveyWarp(0x3800, 4, 1, 8)"],
+    ["wait", 6000],
+    ["eval", "surveySkip(20)"],
+    ["eval", "surveyEquip(0x01, 0x06, 0x0F)"],
+    ["eval", "surveyFight(22000, 'aim')"],
+    ["eval", "surveyFight(18000, 'tap')"]
    ]
   },
   {
