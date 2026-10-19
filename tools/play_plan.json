@@ -3,7 +3,11 @@
              "and the logos; then tools/shader_survey.js takes the game to Termina Field outside Clock Town's south gate on the",
              "first morning, as the game's own map select does, and Link runs out into the field and then about a minute about",
              "there: walking to and fro, turning, swinging the sword and targeting. The walk stays clear of the gate, which takes",
-             "him back into town."],
+             "him back into town.",
+             "From the warp on, its waits and holds are on the game's own clock, the play state's gameplayFrames (20 a second,",
+             "through sCamPlayState; the field's new play state starts it at 0, which the wait after the warp counts from), so",
+             "every browser walks Link as far whatever frames it gives the game; the last step reads where Link is (the player",
+             "actor's world.pos)."],
   "page": "Zelda64Recompiled.html",
   "load": [["until","Device Name",30000],["wait",9000]],
   "setup": [["rom",1150,519],["wait",4000]],
@@ -11,6 +15,7 @@
   "play": [
     ["evalFile","shader_survey.js"],
     ["eval","surveyWarp(0x5400, 4, 1, 8)"],
+    ["clock","(() => { const p = n64r(0x801EDC28); return p >= 0x80000000 && p < 0x80800000 ? n64r(p + 0x18840) : 0; })()",20],
     ["wait",9000],
     ["hold","KeyW","w",87,3000],
     ["hold","KeyD","d",68,600],
@@ -78,6 +83,7 @@
     ["hold","KeyQ","q",81,150],
     ["wait",600],
     ["hold","KeyS","s",83,1200],
-    ["wait",400]
+    ["wait",400],
+    ["eval","(() => { const f = (a) => new Float32Array(new Uint32Array([n64r(a)]).buffer)[0]; const l = n64r(n64r(0x801EDC28) + 0x1CCC); return [0x24, 0x28, 0x2C].map((o) => Math.round(f(l + o))); })()"]
   ]
 }
