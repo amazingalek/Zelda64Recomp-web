@@ -96,8 +96,10 @@ its GPU work, so there those above the first section are built before the game s
 game first draws there, the game waiting. `tools/record_shaders.sh` records the list (its header says how, about an hour): N64Recomp-browser's recorder
 drives the page in headless Chrome through `tools/shader_plan.json`, and `patches/shader_survey.c` starts a new game
 or warps to each area when the plan asks. `tools/play_plan.json` plays the page as a player would, for
-N64Recomp-browser's `tools/play_page.mjs`: the boot, then Termina Field outside Clock Town's south gate, warped to by
-the same survey, and about a minute of Link on foot there (its header says more).
+N64Recomp-browser's `tools/play_page.mjs`, in 2-3 minutes: the boot, then Termina Field outside Clock Town's south
+gate, warped to by the same survey, and Woodfall Temple, about 30 s of Link on foot in each.
+`tools/play_plan_extended.json`, for when a longer play is needed, goes on to Great Bay Coast and Goron Village, in at
+most 5 minutes (their headers say more).
 
 With steps 1 to 3 done, patch the submodules:
 
