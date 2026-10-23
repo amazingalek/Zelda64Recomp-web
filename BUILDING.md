@@ -80,7 +80,7 @@ Voilà! You should now have a `Zelda64Recompiled` executable in the build direct
 
 This fork's `main` branch also builds with [Emscripten](https://emscripten.org) into a page, `Zelda64Recompiled.html`,
 that draws through WebGPU. `lib/rt64`, `lib/N64ModernRuntime` and `lib/RecompFrontend` are upstream's own, at the
-same commits, and [N64Recomp-browser](https://github.com/amazingalek/N64Recomp-browser) (`lib/N64Recomp-browser`)
+same commits, and [N64Recomp-browser](https://github.com/n64hub/N64Recomp-browser) (`lib/N64Recomp-browser`)
 patches their checkouts with the web support and makes the game a page. The patches change nothing in the desktop
 build. Mods a player installs are off on the page (no live recompiler), but the built-in D-pad one is
 recompiled to C at build time and linked in, so the D-pad takes items there as on the desktop. RT64's render to RAM
@@ -145,5 +145,5 @@ the queue is an out-of-bounds access in the wasm, which crashes the page about 3
 `clock-town` section.
 
 How the page plays, in which browser, on what GPU and on which build, is recorded in N64Recomp-browser's
-[plays.jsonl](https://github.com/amazingalek/N64Recomp-browser/blob/main/plays.jsonl) and its
-[games table](https://github.com/amazingalek/N64Recomp-browser#games).
+[plays.jsonl](https://github.com/n64hub/N64Recomp-browser/blob/main/plays.jsonl) and its
+[games table](https://github.com/n64hub/N64Recomp-browser#games).
